@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC                       
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+   <struts>	
+   
+   		<package name="default"  extends="struts-default">
+	   		<action name="login" class="com.wyu.actions.LoginAction"  >
+	   			<result name="success">/success.jsp</result>
+	   			<result name="input">/login.jsp</result>
+	   		</action>
+	   		
+	   		<!-- 样例
+	   			<action name="addBoard" class="AddBoard" method="addBoard" >
+					<result name="redirect" type="redirectAction">
+						<param name="actionName">list</param>
+					</result>
+					<result name="error">/error/error.jsp</result>
+				</action>
+	   		 -->
+   		</package>
+   </struts>
