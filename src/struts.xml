@@ -5,7 +5,7 @@
    <struts>	
    
    		<package name="default"  extends="struts-default">
-	   		<action name="login" class="com.wyu.actions.LoginAction"  >
+	   		<action name="login" class="com.wyu.actions.LoginAction" method="login" >
 	   			<result name="success">/success.jsp</result>
 	   			<result name="input">/login.jsp</result>
 	   		</action>

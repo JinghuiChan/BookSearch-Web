@@ -1,17 +1,30 @@
 package com.wyu.actions;
 
-import java.util.Map;
-
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.wyu.entity.User;
+import com.wyu.service.UserService;
 
 public class LoginAction extends ActionSupport {
+	private User user = new User();
 	private String username;
 	private String password;
+	private UserService userService = new UserService();
+	
 	
 	public LoginAction() {
 		
 	}
+
+	
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 
 	public String getUsername() {
 		return username;
@@ -29,11 +42,14 @@ public class LoginAction extends ActionSupport {
 		this.password = password;
 	}
 	
-	public String excute() throws Exception {
+	public String login() {
+		user.setUserName(username);
+		user.setUserPasswd(password);
+		if(userService.checkLogin(user)) {
+			return SUCCESS;
+		}else {
+			return INPUT;
+		}
 		
-			if(username.equals("admin") && password.equals("admin"))
-				return SUCCESS;
-			else 
-				return INPUT;	
 	}
 }
