@@ -1,8 +1,5 @@
 package com.wyu.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.wyu.dao.QueryDAO;
 import com.wyu.entity.User;
 

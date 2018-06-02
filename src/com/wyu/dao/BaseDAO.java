@@ -18,7 +18,7 @@ public class BaseDAO {
 	
 	public static Connection getConnection() {
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://10.10.4.35:3306/library","root","123456");
+			conn = DriverManager.getConnection("jdbc:mysql://10.10.4.35:3306/library?useUnicode=true&characterEncoding=utf8","root","123456");
 		}catch (Exception e) {
 			System.out.println("数据库连接失败！");
 			e.printStackTrace();

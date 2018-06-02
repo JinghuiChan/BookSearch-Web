@@ -1,0 +1,19 @@
+@charset "UTF-8";
+.daohang {
+	width:950px;
+	text-align: left;
+	margin-top: 10px;
+	background:#999999 no-repeat;
+	height:30px;
+	line-height: 30px;
+	color:white;
+	font-weight: bold;
+}
+
+.whitea {
+	color:white;
+}
+
+hr{
+	width:950px;
+}

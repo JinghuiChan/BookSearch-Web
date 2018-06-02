@@ -9,8 +9,16 @@
 	   			<result name="success">/success.jsp</result>
 	   			<result name="input">/login.jsp</result>
 	   		</action>
+	   		<action name="searchSubmit" class="com.wyu.actions.SearchSubmitAction" method="search">
+	   			<result name="success">/searchResult.jsp</result>
+	   			<result name="input">/error.jsp</result>
+	   		</action>
+	   		<action name="bookDetail" class="com.wyu.actions.ShowBookDetailAction" method="search">
+	   			<result name="success">/bookDetail.jsp</result>
+	   			<result name="input">/error.jsp</result>
+	   		</action>
 	   		
-	   		<!-- 样例
+	   		<!-- 样例 
 	   			<action name="addBoard" class="AddBoard" method="addBoard" >
 					<result name="redirect" type="redirectAction">
 						<param name="actionName">list</param>

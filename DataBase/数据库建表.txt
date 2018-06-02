@@ -1,0 +1,155 @@
+数据库：mysql
+数据库名称：library
+
+
+CREATE DATABASE library;
+
+use library;
+
+CREATE TABLE IF NOT EXISTS `t_user`(
+   `user_id` INT UNSIGNED AUTO_INCREMENT,
+   `user_name` VARCHAR(100) NOT NULL unique,
+   `user_passwd` VARCHAR(40) NOT NULL,
+   PRIMARY KEY ( `user_id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO t_user (user_name, user_passwd )
+                       VALUES
+                       ("admin","admin");
+
+
+/* 作者表 */
+CREATE TABLE IF NOT EXISTS `t_author`(
+   `author_id` INT UNSIGNED AUTO_INCREMENT,
+   `author_name` VARCHAR(30) NOT NULL unique,
+   PRIMARY KEY ( `author_id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+/* 图书地址表 */
+CREATE TABLE IF NOT EXISTS `t_bookAddress`(
+   `bookAddress_id` INT UNSIGNED AUTO_INCREMENT,
+   `bookAddress_library` VARCHAR(30) NOT NULL,
+   `bookAddress_floor` VARCHAR(10) NOT NULL,
+   `bookAddress_number` VARCHAR(20) NOT NULL,
+   PRIMARY KEY ( `bookAddress_id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/* 图书出版社表 */
+CREATE TABLE IF NOT EXISTS `t_publish`(
+   `publish_id` INT UNSIGNED AUTO_INCREMENT,
+   `publish_name` VARCHAR(30) NOT NULL unique,
+   PRIMARY KEY ( `publish_id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/* 图书类别表 */
+CREATE TABLE IF NOT EXISTS `t_bookType`(
+   `bookType_id` INT UNSIGNED AUTO_INCREMENT,
+   `bookType_name` VARCHAR(30) NOT NULL unique,
+   `bookAddress_id` int UNSIGNED ,
+   constraint bookAddress_id_fk foreign key(bookAddress_id) references t_bookAddress(bookAddress_id),
+   PRIMARY KEY ( `bookType_id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/* 图书表 */
+CREATE TABLE IF NOT EXISTS `t_book`(
+   `book_id` INT UNSIGNED AUTO_INCREMENT,
+   `book_name` VARCHAR(30) NOT NULL unique,
+   `book_sum` INT,
+   `book_price` INT,
+   `book_number` varchar(30),
+   `book_isbn` varchar(30),
+   `bookType_id` INT UNSIGNED,
+   `publish_id` INT UNSIGNED,
+   `bookAddress_id` INT UNSIGNED,
+   foreign key(publish_id) references t_publish(publish_id),
+   foreign key(bookType_id) references t_bookType(bookType_id),
+   foreign key(bookAddress_id) references t_bookAddress(bookAddress_id),
+   PRIMARY KEY ( `book_id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*  插入数据  */
+INSERT INTO t_author ( author_name )
+                       VALUES
+                       ("徐勇" ),
+	       ("王黎" ),
+                       ("储九良" ),
+	       ("Rafael C. Gonzalez" ),
+                       ("Richard E. Woods" ),
+	       ("阮秋琪" ),
+                       ("Thomas L. Friedman" ),
+	       ("Steven L. Eddins" );
+
+
+INSERT INTO t_bookAddress ( bookAddress_library, bookAddress_floor,  bookAddress_number)
+                       VALUES
+                       ("五邑大学图书馆", "一层","null" ),
+	       ("五邑大学图书馆", "二层","F" ),
+                       ("五邑大学图书馆", "三层","A,B,C,D,E" ),
+                       ("五邑大学图书馆", "四层","G,H,K" ),
+	       ("五邑大学图书馆", "五层","I" ),
+                       ("五邑大学图书馆", "六层","TM,TN,TP" ),
+	       ("五邑大学图书馆", "七层","NULL" ),
+                       ("五邑大学图书馆", "八层","TU,J" ),
+	       ("五邑大学图书馆", "九层","null" );
+
+
+INSERT INTO t_publish ( publish_name )
+                       VALUES
+                       ("科学出版社" ),
+	       ("北京大学出版社" ),
+                       ("清华大学出版社" ),
+	       ("中国原子能出版社" ),
+                       ("人民邮电出版社" ),
+	       ("光明日报出版社" ),
+                       ("电子工业出版社" ),
+	       ("人民文学出版社" );
+
+
+
+INSERT INTO t_bookType ( bookType_name,bookAddress_id )
+                       VALUES
+                       ("经济","2" ),
+	       ("政法哲学","3" ),
+                       ("语言、教育、史学","4" ),
+	       ("文学","5" ),
+                       ("电子、电工、计算机","6" ),
+	       ("理工","7" ),
+                       ("建筑","8" );
+
+
+
+INSERT INTO t_book ( book_name,bookType_id, publish_id,bookAddress_id,book_sum,book_price,book_number,book_isbn)
+                       VALUES
+                       ("追寻生命的意义" ,2,2,2,2,40,"B825","978-7-80232-768-9"),
+	       ("拖延心里学" ,3,3,3,2,41,"A825","978-7-80232-768-9"),
+                       ("梦的解析" ,4,4,4 ,1,42,"TP825","978-7-80232-768-9"),
+	       ("宽容" ,5,5,5,2,43,"C825","978-7-80232-768-9"),
+                       ("如何阅读一本书" ,6,6,6,1,44,"D825","978-7-80232-768-9" ),
+	       ("人的潜能和价值" ,7,7,7,2,45,"E825","978-7-80232-768-9" ),
+                       ("策略思维" ,7,8,8 ,2,46 ,"F825","978-7-80232-768-9"),
+	       ("无价" ,3,4,5 ,1,47,"H825","978-7-80232-768-9" ),
+                       ("浅薄" ,2,2,2,2,48,"B825","978-7-80232-768-9"),
+	       ("定位" ,3,3,3,1,40,"A825","978-7-80232-768-9"),
+                       ("社会契约论" ,4,4,4,2,49,"TU825","978-7-80232-768-9" ),
+	       ("人月神话" ,5,5,5,1,50,"A825","978-7-80232-768-9"),
+                       ("设计心理学" ,6,6,6,1,51,"D825","978-7-80232-768-9"),
+	       ("战争论" ,7,7,7,1,52,"H825","978-7-80232-768-9"),
+                       ("伦理学" ,7,8,8 ,1,53 ,"TN825","978-7-80232-768-9"),
+	       ("欢乐的经济学" ,3,4,5,2,54 ,"TM825","978-7-80232-768-9" ),
+                       ("目送" ,2,2,2,2,55,"J825","978-7-80232-768-9"),
+	       ("一九八四" ,3,3,3,2,56,"TM825","978-7-80232-768-9"),
+                       ("雪国" ,4,4,4,2,56 ,"B825","978-7-80232-768-9"),
+	       ("自私的基因" ,5,5,5,2,57,"A825","978-7-80232-768-9" ),
+                       ("历史研究" ,6,6,6,1,58,"G825","978-7-80232-768-9"),
+	       ("论美国的民主" ,7,7,7,1,59,"C825","978-7-80232-768-9" ),
+                       ("西方美学史" ,7,8,8,1,60,"E825","978-7-80232-768-9" ),
+	       ("长尾理论" ,3,4,5,1,61,"F825","978-7-80232-768-9"),
+                       ("理想国" ,2,2,2,1,62,"J825","978-7-80232-768-9"),
+	       ("菊花与刀" ,3,3,3,1,63,"D825","978-7-80232-768-9"),
+                       ("激荡三十年" ,4,4,4 ,2,64,"TP825","978-7-80232-768-9"),
+	       ("经济学原理" ,5,5,5 ,3,64 ,"TM825","978-7-80232-768-9"),
+                       ("悲惨的世界" ,6,6,6,3,65,"F825","978-7-80232-768-9"),
+	       ("平凡的世界" ,7,7,7,3,66 ,"J825","978-7-80232-768-9"),
+                       ("乌合之众" ,7,8,8,3,67  ,"TP825","978-7-80232-768-9"),
+	       ("人间词话" ,3,4,5,3,68,"C825","978-7-80232-768-9" );
